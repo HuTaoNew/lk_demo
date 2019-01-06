@@ -1,25 +1,23 @@
 <template>
-  <ul class="todo-main">
-    <li>
-      <label>
-        <input type="checkbox">
-        <span>Vue-拼多多项目实战-课程讲解</span>
-      </label>
-      <button style="display:none">删除</button>
-    </li>
-    <li>
-      <label>
-        <input type="checkbox">
-        <span>Vue-拼多多项目实战-作业布置</span>
-      </label>
-      <button style="display:none">删除</button>
-    </li>
-  </ul>
+  <div>
+    <ul class="todo-main" v-for="(todo, index) in todos" :key="index">
+      <Items :todo="todo" :index="index" :delTodo="delTodo"/>
+    </ul>
+  </div>
 </template>
 
 <script>
+import Items from "./Items";
+
 export default {
-  name: "lists"
+  name: "lists",
+  props: {
+    todos: Array,
+    delTodo: Function
+  },
+  components: {
+    Items
+  }
 };
 </script>
 
@@ -39,46 +37,5 @@ export default {
   border-radius: 2px;
   padding-left: 5px;
   margin-top: 10px;
-}
-
-/*列表选项*/
-li {
-  list-style: none;
-  height: 36px;
-  line-height: 36px;
-  padding: 0 5px;
-  border-bottom: 1px solid #ddd;
-}
-
-li label {
-  float: left;
-  cursor: pointer;
-}
-
-li label li input {
-  vertical-align: middle;
-  margin-right: 6px;
-  position: relative;
-  top: -1px;
-}
-
-li button {
-  background-color: orangered;
-  padding: 4px 10px;
-  border-radius: 5px;
-  color: #fff;
-  border: none;
-  float: right;
-  margin-top: 3px;
-  outline: none;
-  cursor: pointer;
-}
-
-li:before {
-  content: initial;
-}
-
-li:last-child {
-  border-bottom: none;
 }
 </style>

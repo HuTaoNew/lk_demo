@@ -1,18 +1,48 @@
 <template>
   <div class="todo-footer">
     <label>
-      <input type="checkbox">
+      <input type="checkbox" v-model="isCheck">
     </label>
     <span>
-      <span>已完成0件</span> / 总计2件
+      <span>已完成{{this.finishedCount}}件</span>
+      / 总计{{this.todos.length}}件
     </span>
-    <button class="btn btn-warning">清除已完成任务</button>
+    <button class="btn btn-warning" @click="deleteTodos()">清除已完成任务</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "footer"
+  name: "footer",
+  props: {
+    todos: Array,
+    selectedAll: Function,
+    delFinished: Function
+  },
+  computed: {
+    finishedCount() {
+      return this.todos.reduce(
+        (total, todo) => total + (todo.finished ? 1 : 0),
+        0
+      );
+    },
+    isCheck: {
+      get() {
+        if (this.todos.length > 0) {
+          return this.finishedCount === this.todos.length;
+        }
+      },
+
+      set(value) {
+        this.selectedAll(value);
+      }
+    }
+  },
+  methods: {
+    deleteTodos() {
+      this.delFinished();
+    }
+  }
 };
 </script>
 
@@ -41,5 +71,4 @@ export default {
   float: right;
   margin-top: 5px;
 }
-
 </style>

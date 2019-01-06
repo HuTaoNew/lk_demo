@@ -1,17 +1,41 @@
 <template>
   <div class="todo-header">
-    <input type="text" placeholder="请输入今天的任务清单，按回车键确认">
+    <input
+      type="text"
+      placeholder="请输入今天的任务清单，按回车键确认"
+      v-model="todo.title"
+      @keyup.enter="addItem(todo)"
+    >
   </div>
 </template>
 
 <script>
 export default {
-  name: "header"
+  name: "header",
+  props: {
+    addTodo: Function
+  },
+  data() {
+    return {
+      todo: {
+        title: "",
+        finished: false
+      }
+    };
+  },
+  methods: {
+    addItem(todo) {
+      if (this.todo.title.trim() != null) {
+        this.addTodo(todo);
+        this.todo = {title:"", finished:false}
+      }
+    }
+  }
 };
 </script>
 
 <style scoped>
-.todo-header input{
+.todo-header input {
   width: 560px;
   height: 28px;
   font-size: 14px;
@@ -24,6 +48,7 @@ export default {
 .todo-header input:focus {
   outline: none;
   border-color: rgba(255, 0, 0, 0.8);
-  box-shadow: inset 0 1px 1px rgba(255, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+  box-shadow: inset 0 1px 1px rgba(255, 0, 0, 0.075),
+    0 0 8px rgba(255, 0, 0, 0.6);
 }
 </style>
