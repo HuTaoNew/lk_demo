@@ -10,8 +10,8 @@ export default {
   },
 
   //判断是否全选
-  isCheckedAll(state, getter){
-    return getter.finishedCount === getter.totalCount && getter.totalCount > 0;
+  isCheckedAll(state, getters){
+    return getters.finishedCount === getters.totalCount && getters.totalCount > 0;
   }
 
 }

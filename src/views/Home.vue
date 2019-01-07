@@ -18,25 +18,10 @@ import Footer from "./../components/Footer";
 
 export default {
   name: "home",
-  data() {
-    return {
-    };
-  },
   components: {
     Header,
     Lists,
     Footer
-  },
-  methods:{
-
-    selectedAll(isChecked){
-      this.todos.forEach(todo => {
-        todo.finished = isChecked
-      })
-    },
-    delFinished () {
-      this.todos = this.todos.filter(todo => !todo.finished)
-    }
   }
 }
 </script>
