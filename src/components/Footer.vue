@@ -4,43 +4,33 @@
       <input type="checkbox" v-model="isCheck">
     </label>
     <span>
-      <span>已完成{{this.finishedCount}}件</span>
-      / 总计{{this.todos.length}}件
+      <span>已完成{{finishedCount}}件</span>
+      / 总计{{totalCount}}件
     </span>
     <button class="btn btn-warning" @click="deleteTodos()">清除已完成任务</button>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "footer",
-  props: {
-    todos: Array,
-    selectedAll: Function,
-    delFinished: Function
-  },
   computed: {
-    finishedCount() {
-      return this.todos.reduce(
-        (total, todo) => total + (todo.finished ? 1 : 0),
-        0
-      );
-    },
+    ...mapGetters(["finishedCount", "totalCount", "isCheckedAll"]),
     isCheck: {
       get() {
-        if (this.todos.length > 0) {
-          return this.finishedCount === this.todos.length;
-        }
+        return this.isCheckAll;
       },
 
       set(value) {
-        this.selectedAll(value);
+        this.$store.dispatch("selectAll", value);
       }
     }
   },
   methods: {
     deleteTodos() {
-      this.delFinished();
+      this.$store.dispatch("deleteFinished");
     }
   }
 };

@@ -33,7 +33,7 @@ export default {
     },
     deleteTodo() {
       if (window.confirm("确定删除${this.todo.title}吗？")) {
-        this.delTodo(this.index);
+        this.$store.dispatch("delTodo", this.index);
       }
     }
   }

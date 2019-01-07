@@ -1,7 +1,7 @@
 <template>
   <div>
-    <ul class="todo-main" v-for="(todo, index) in todos" :key="index">
-      <Items :todo="todo" :index="index" :delTodo="delTodo"/>
+    <ul class="todo-main" v-for="(todo, index) in $store.state.todos" :key="index">
+      <Items :todo="todo" :index="index" />
     </ul>
   </div>
 </template>
@@ -11,10 +11,6 @@ import Items from "./Items";
 
 export default {
   name: "lists",
-  props: {
-    todos: Array,
-    delTodo: Function
-  },
   components: {
     Items
   }

@@ -12,9 +12,9 @@
 <script>
 export default {
   name: "header",
-  props: {
-    addTodo: Function
-  },
+  // props: {
+  //   addTodo: Function
+  // },
   data() {
     return {
       todo: {
@@ -25,10 +25,20 @@ export default {
   },
   methods: {
     addItem(todo) {
-      if (this.todo.title.trim() != null) {
-        this.addTodo(todo);
-        this.todo = {title:"", finished:false}
+      // 判断数据是否合理
+      const title = this.todo.title.trim();
+      if (!title) {
+        alert('输入的内容不能为空。');
+        return;
       }
+
+      //生成todo对象
+
+      //调用处理方法
+      this.$store.dispatch('addTodo', this.todo);
+
+      //清空输入框
+      this.todo = { title: "", finished: false };
     }
   }
 };
